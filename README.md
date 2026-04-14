@@ -1,7 +1,1 @@
-# Project for "Will you go on a date with me?" pages
-
-### EXAMPLE ###
-
-<img src="https://i.postimg.cc/4xjVT0HJ/page1.png" width="400"/>
-<img src="https://i.postimg.cc/4xjVT0HN/page2.png" width="400"/>
-<img src="https://i.postimg.cc/rw7xLHRw/page3.png" width="400"/>
+<img width="1919" height="992" alt="image" src="https://github.com/user-attachments/assets/93de1ac7-6b32-4614-b343-7de4c1441c31" />
