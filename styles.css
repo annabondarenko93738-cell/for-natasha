@@ -1,0 +1,323 @@
+:root {
+    --bg-main: #eee8fb;
+    --bg-glow: #f7f2ff;
+    --card-bg: rgba(255, 255, 255, 0.24);
+    --text-dark: #8155b2;
+    --button-main: #9c5cff;
+    --shadow: 0 12px 35px rgba(123, 63, 228, 0.16);
+    --shadow-soft: 0 8px 22px rgba(123, 63, 228, 0.12);
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  body {
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, var(--bg-glow) 0%, var(--bg-main) 45%, #e9def8 100%);
+    overflow: hidden;
+    color: var(--text-dark);
+  }
+  
+  .container {
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    padding: 18px 18px 26px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+  
+  .message-container {
+    width: min(1000px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    background: var(--card-bg);
+    backdrop-filter: blur(7px);
+    border-radius: 28px;
+    padding: 22px 28px;
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .name {
+    font-size: clamp(38px, 5.5vw, 74px);
+    font-weight: 800;
+    line-height: 1.04;
+    color: var(--button-main);
+    text-shadow: 0 4px 16px rgba(156, 92, 255, 0.18);
+  }
+  
+  .message {
+    font-size: clamp(26px, 3vw, 54px);
+    line-height: 1.18;
+    color: var(--text-dark);
+    max-width: 950px;
+  }
+  
+  .sub-message {
+    margin-top: 4px;
+    font-size: clamp(15px, 1.4vw, 22px);
+    color: rgba(123, 63, 228, 0.8);
+    font-style: italic;
+  }
+  
+  .final-message {
+    color: var(--button-main);
+    font-weight: 700;
+    animation: pulseText 1.8s ease-in-out infinite;
+  }
+  
+  .image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    display: block;
+    width: auto;
+    max-width: min(320px, 72vw);
+    max-height: min(31vh, 300px);
+    height: auto;
+    filter: drop-shadow(0 14px 24px rgba(123, 63, 228, 0.13));
+    animation: floatCat 2.8s ease-in-out infinite;
+  }
+  
+  .buttons-container {
+    width: min(760px, 96vw);
+    position: relative;
+  }
+  
+  .button,
+  .button-link {
+    appearance: none;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 132px;
+    min-height: 52px;
+    padding: 14px 26px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ab6cff 0%, #8c4ef5 100%);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .button:hover,
+  .button-link:hover {
+    box-shadow: 0 16px 38px rgba(123, 63, 228, 0.22);
+    filter: brightness(1.03);
+  }
+  
+  .runaway-layout {
+    height: 170px;
+  }
+  
+  /* Обе кнопки живут внутри одной зоны */
+  .runaway-layout .yes-button,
+  .runaway-layout .runaway-button {
+    position: absolute;
+    top: 96px;
+  }
+  
+  /* Правая и левая стартовые позиции. JS потом уточнит их под реальную ширину */
+  .runaway-layout .yes-button {
+    left: calc(50% - 86px);
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+  
+  .runaway-layout .runaway-button {
+    left: calc(50% + 86px);
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+  
+  .yes-button:active {
+    transform: translateX(-50%) scale(0.98);
+  }
+  
+  .double-buttons {
+    min-height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .dual-button {
+    position: static;
+  }
+  
+  .final-buttons {
+    min-height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .final-buttons .button-link {
+    position: static;
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: revealUp 0.8s ease forwards;
+  }
+  
+  .reveal-1 { animation-delay: 0.1s; }
+  .reveal-2 { animation-delay: 0.35s; }
+  .reveal-3 { animation-delay: 0.6s; }
+  
+  .hearts-layer {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 9999;
+  }
+  
+  .heart {
+    position: fixed;
+    font-size: 24px;
+    animation: heartFly 1.6s ease-out forwards;
+    will-change: transform, opacity;
+  }
+  
+  @keyframes revealUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes floatCat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  
+  @keyframes pulseText {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 0 rgba(156, 92, 255, 0);
+    }
+    50% {
+      transform: scale(1.03);
+      text-shadow: 0 0 20px rgba(156, 92, 255, 0.18);
+    }
+  }
+  
+  @keyframes heartFly {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.7) rotate(0deg);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-140px) scale(1.35) rotate(18deg);
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .container {
+      padding: 12px 12px 18px;
+      gap: 12px;
+    }
+  
+    .message-container {
+      padding: 16px 14px;
+      border-radius: 22px;
+    }
+  
+    .name {
+      font-size: clamp(30px, 8.5vw, 50px);
+    }
+  
+    .message {
+      font-size: clamp(22px, 6vw, 34px);
+      line-height: 1.16;
+    }
+  
+    .sub-message {
+      font-size: 15px;
+    }
+  
+    .image-container img {
+      max-width: min(250px, 68vw);
+      max-height: min(25vh, 220px);
+    }
+  
+    .runaway-layout {
+      height: 160px;
+    }
+  
+    .runaway-layout .yes-button,
+    .runaway-layout .runaway-button {
+      top: 92px;
+    }
+  
+    .button,
+    .button-link {
+      min-width: 116px;
+      min-height: 48px;
+      padding: 13px 18px;
+      font-size: 18px;
+      border-radius: 16px;
+    }
+  
+    .double-buttons {
+      gap: 14px;
+    }
+  }
+  
+  @media (max-height: 760px) {
+    .container {
+      padding-top: 10px;
+      padding-bottom: 14px;
+      gap: 10px;
+    }
+  
+    .image-container img {
+      max-height: min(22vh, 180px);
+    }
+  
+    .runaway-layout {
+      height: 150px;
+    }
+  
+    .runaway-layout .yes-button,
+    .runaway-layout .runaway-button {
+      top: 82px;
+    }
+  }
